@@ -14,9 +14,11 @@ mongoose.connect(process.env.MONGODB_URI);
 
 const comicsRoutes = require("./routes/comics");
 const charactersRoutes = require("./routes/characters");
+const userRoutes = require("./routes/signup");
 
 app.use(comicsRoutes);
 app.use(charactersRoutes);
+app.use(userRoutes);
 
 app.get("/", (req, res) => {
   //   console.log("Nous sommes sur le serveur");

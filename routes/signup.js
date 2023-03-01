@@ -11,13 +11,13 @@ router.post("/signup", async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
+    console.log(req.body);
     const emailAlreadyExist = await User.findOne({ email: email });
     if (emailAlreadyExist) {
       return res.status(400).json({
         error: { message: "This email already exist" },
       });
     }
-
     if (!req.body.username) {
       return res.status(400).json({
         error: { message: "An username is needed" },
@@ -32,13 +32,13 @@ router.post("/signup", async (req, res) => {
     console.log("token : ", token);
     const newUser = new User({
       email,
-      account: { username },
+      username,
       token,
     });
 
     const response = {
       _id: newUser.id,
-      account: newUser.account,
+      username: newUser.username,
       token: newUser.token,
     };
     await newUser.save();
@@ -50,7 +50,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-router.post("/user/login", async (req, res) => {
+router.post("/signup/login", async (req, res) => {
   try {
     console.log(req.body);
     const { email, password } = req.body;
@@ -71,7 +71,7 @@ router.post("/user/login", async (req, res) => {
 
     res.json({
       _id: user._id,
-      account: user.account,
+      username: user.username,
       token: user.token,
     });
   } catch (error) {

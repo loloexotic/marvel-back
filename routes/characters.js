@@ -37,7 +37,7 @@ router.get("/character/:characterId", async (req, res) => {
     });
 
     console.log(req.params.id);
-    res.json(characterId);
+    res.send(characterId);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
